@@ -3282,7 +3282,6 @@ ROM_START( donpachi )
 	ROM_REGION( 0x340000, "oki2", 0 )   /* OKIM6295 #2 Samples */
 	/* Leave the 0x40000 bytes addressable by the chip empty */
 	ROM_LOAD( "atdp.u32", 0x040000, 0x100000, CRC(0d89fcca) SHA1(e16ed15fa5e72537822f7b37e83ccfed0fa87338) )
-	ROM_LOAD( "atdp.u33", 0x140000, 0x200000, CRC(d749de00) SHA1(64a0acc23eb2515e7d0459f0289919e083c63afc) )
 
 	ROM_REGION16_BE( 0x80, "eeprom", 0 )
 	ROM_LOAD16_WORD( "eeprom-donpachi.u10", 0x0000, 0x0080, CRC(315fb546) SHA1(7f597107d1610fc286413e0e93c794c80c0c554f) ) /* ATMEL 93C46 */

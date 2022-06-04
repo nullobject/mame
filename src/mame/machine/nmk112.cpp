@@ -70,19 +70,21 @@ void nmk112_device::do_bankswitch( int offset, int data )
 
 	if (size == 0) return;
 
-	int bankaddr = (data * BANKSIZE) % size;
+	int pageaddr = (data * BANKSIZE) % size;
+
+	printf("offset: %d, data: 0x%08X, chip: %d, banknum: %d, pageaddr: 0x%08X\n", offset, data, chip, banknum, pageaddr);
 
 	/* copy the samples */
 	if ((paged) && (banknum == 0))
-		memcpy(rom + 0x400, rom + 0x40000 + bankaddr + 0x400, BANKSIZE - 0x400);
+		memcpy(rom + 0x400, rom + 0x40000 + pageaddr + 0x400, BANKSIZE - 0x400);
 	else
-		memcpy(rom + banknum * BANKSIZE, rom + 0x40000 + bankaddr, BANKSIZE);
+		memcpy(rom + banknum * BANKSIZE, rom + 0x40000 + pageaddr, BANKSIZE);
 
 	/* also copy the sample address table, if it is paged on this chip */
 	if (paged)
 	{
 		rom += banknum * TABLESIZE;
-		memcpy(rom, rom + 0x40000 + bankaddr, TABLESIZE);
+		memcpy(rom, rom + 0x40000 + pageaddr, TABLESIZE);
 	}
 }
 
@@ -92,7 +94,7 @@ void nmk112_device::do_bankswitch( int offset, int data )
 
 void nmk112_device::okibank_w(offs_t offset, u8 data)
 {
-	if (m_current_bank[offset] != data)
+	// if (m_current_bank[offset] != data)
 		do_bankswitch(offset, data);
 }
 
